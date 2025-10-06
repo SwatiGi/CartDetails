@@ -1,0 +1,41 @@
+.Dcontainer {
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+
+    color: black;
+    width: 80%;
+    margin: auto;
+}
+
+.detail-container,
+.data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.h1 {
+    text-align: center;
+}
+
+.price-btn {
+    border: none;
+    padding: 0px 10px;
+    background: #000;
+    font-size: 18px;
+    border-radius: 20px;
+    height: 50px;
+}
+
+.add-btn {
+
+    border: 2px solid skyblue;
+    color: rgb(57, 192, 245);
+    font-size: 20px;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background: none;
+}
