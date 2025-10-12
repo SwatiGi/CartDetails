@@ -1,0 +1,26 @@
+.notification {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    padding: 5px;
+    box-sizing: border-box;
+    color: white;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification.pending {
+    background-color: #007bff;
+}
+
+.notification.success {
+    background-color: #28a745;
+}
+
+.notification.error {
+    background-color: #dc3545;
+}

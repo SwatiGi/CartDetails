@@ -25,6 +25,7 @@ const ShopingCart = () => {
 
       {cartItems.length === 0 && <p>No items in cart.</p>}
 
+          <div>
       {cartItems.map((item) => (
         <div className='item-container' key={item.id}>
           <div className='first-container'>
@@ -42,6 +43,7 @@ const ShopingCart = () => {
           </div>
         
       ))}
+          </div>
           
     </div>
   );

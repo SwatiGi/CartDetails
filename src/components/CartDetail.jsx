@@ -2,7 +2,7 @@ import React from 'react';
 import "./CartDetail.css";
 import { useDispatch } from "react-redux";
 import { cartActions } from '../store/cart-slice';
-
+import axios from "axios"
 const CartDetail = () => {
   const dummyProducts = [
     { id: "p1", price: 6, title: "My First Book", description: "The first book I ever wrote." },
@@ -16,7 +16,10 @@ const CartDetail = () => {
   const dispatch = useDispatch();
 
   const addToCartHandler = (item) => {
-    dispatch(cartActions.addItemToCart({
+    
+    dispatch(cartActions.addItemToCart(
+      
+      {
       id: item.id,
       title: item.title,
       price: item.price,
@@ -26,9 +29,9 @@ const CartDetail = () => {
   return (
     <>
       <h1 className='h1'>BUY YOUR FAVORITE PRODUCTS</h1>
-      <div className='Dcontainer'>
         {dummyProducts.map((item) => (
-          <div className='product-card' key={item.id}>
+      <div className='Dcontainer'  key={item.id}>
+          <div className='product-card'>
             <div className='detail-container'>
               <h2>{item.title}</h2>
               <button className='price-btn'>${item.price}</button>
@@ -44,8 +47,8 @@ const CartDetail = () => {
               </button>
             </div>
           </div>
-        ))}
       </div>
+        ))}
     </>
   );
 };
