@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const Notification = () => {
   const notification = useSelector((state) => state.ui.notification);
-
+console.log(notification)
   if (!notification) return null; // agar koi notification nahi hai to kuch render mat karo
 
   let specialClasses = "";

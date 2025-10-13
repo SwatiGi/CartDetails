@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import Navbar from "./components/Navbar";
 import ShopingCart from "./components/ShopingCart";
 import CartDetail from "./components/CartDetail";
@@ -6,17 +6,16 @@ import Notification from "./components/Notification";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { uiActions } from "./store/ui-slice";
-import { cartActions } from "./store/cart-slice";
+import { cartActions, sendCartData } from "./store/cart-slice";
 
 const App = () => {
   const dispatch = useDispatch();
   const isShow = useSelector((state) => state.ui.cartIsVisible);
   const notification = useSelector((state) => state.ui.notification);
   const cart = useSelector((state) => state.cart);
+  const isInitial = useRef(true);
 
-  const [isInitial, setIsInitial] = useState(true);
-
-  // 🟢 Fetch cart data from Firebase
+  
   useEffect(() => {
     const fetchCartData = async () => {
       try {
@@ -39,48 +38,16 @@ const App = () => {
     fetchCartData();
   }, [dispatch]);
 
-  // 🔵 Send cart data when updated
+
   useEffect(() => {
-    if (isInitial) {
-      setIsInitial(false);
+    if (isInitial.current) {
+      isInitial.current = false;
       return;
     }
-
-    const sendCartData = async () => {
-      dispatch(
-        uiActions.showNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data!",
-        })
-      );
-      try {
-        await axios.put(
-          "https://productpage-ca999-default-rtdb.firebaseio.com/cart.json",
-          cart
-        );
-        dispatch(
-          uiActions.showNotification({
-            status: "success",
-            title: "Success!",
-            message: "Cart data sent successfully!",
-          })
-        );
-      } catch (error) {
-        dispatch(
-          uiActions.showNotification({
-            status: "error",
-            title: "Error!",
-            message: "Error cart data failed!",
-          })
-        );
-      }
-    };
-
-    sendCartData();
+    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
-  // 🕒 Auto-hide notification after 2s
+  
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => {
@@ -92,16 +59,15 @@ const App = () => {
 
   return (
     <Fragment>
-      {notification && <Notification />}
-    <div>
+      {notification && <Notification {...notification} />}
       <Navbar />
       {isShow && <ShopingCart />}
       <CartDetail />
-    </div>
-</Fragment>
+    </Fragment>
   );
 };
 
 export default App;
+
 
 
